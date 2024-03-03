@@ -125,9 +125,7 @@ IdProvincia varchar (4) NOT NULL,
 IdDepartamento varchar (2) NOT NULL
 )
 
-insert into USUARIO (Nombres, Apellidos, Correo, Clave) values	('Fausto', 'Guaman', 'fer@uce.com','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2')
-insert into USUARIO (Nombres, Apellidos, Correo, Clave) values	('Leonardo', 'Araya', 'leo@uce.com','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2')
-
+insert into USUARIO (Nombres, Apellidos, Correo, Clave) values	('Admin', 'Admin', 'admin@gmail.com','4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2')
 
 	
 	insert into CATEGORIA(Descripcion)values 
@@ -459,3 +457,39 @@ else
 end
 
 
+--CREAR_REPORTE
+
+create proc sp_ReporteDashboard
+as
+begin
+
+select 
+
+(select COUNT (*) from CLIENTE) [TotalCliente],
+(select ISNULL(sum (cantidad),0) from DETALLE_VENTA) [TotalVenta],
+(select COUNT (*) from PRODUCTO)[TotalProducto]
+
+end 
+
+
+
+create proc sp_ReporteVentas(
+@fechainicio varchar (10),
+@fechafin varchar (10),
+@idtransaccion varchar (50)
+)
+as 
+begin
+	
+ set dateformat dmy;
+
+select CONVERT(char(10),v.FechaVenta,103)[FechaVenta], CONCAT(c.Nombres,' ',c.Apellidos)[Cliente],
+p.Nombre[Producto], p.Precio,  dv.Cantidad, dv.Total, v.IdTransaccion
+from DETALLE_VENTA dv
+inner join PRODUCTO p on p.IdProducto = dv.IdProducto
+inner join VENTA v on v.IdVenta = dv.IdVenta
+inner join CLIENTE c on c.IdCliente = dv.IdVenta
+where CONVERT (date, v.FechaVenta) between @fechainicio and @fechafin
+and v.IdTransaccion = iif (@idtransaccion = '', v.IdTransaccion, @idtransaccion)
+
+end
