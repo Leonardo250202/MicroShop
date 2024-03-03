@@ -61,6 +61,8 @@ namespace CapaNegocio
                     EnableSsl = true
                 };
 
+                //Nole Sapo :v
+
                 smtp.Send(mail);
                 resultado = true;
 
