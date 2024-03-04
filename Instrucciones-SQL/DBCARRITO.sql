@@ -627,3 +627,7 @@ begin
 			ROLLBACK TRANSACTION OPERACION
 		END CATCH
 end
+
+select * from  departamento
+select * from provincia where IdDepartamento = @iddepartamento
+select * from DISTRITO where IdProvincia = @idprovincia and IdDepartamento = @iddepartamento

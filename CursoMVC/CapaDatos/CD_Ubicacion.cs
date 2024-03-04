@@ -105,8 +105,8 @@ namespace CapaDatos
                     string query = "select * from DISTRITO where IdProvincia = @idprovincia and IdDepartamento = @iddepartamento";
 
                     SqlCommand cmd = new SqlCommand(query, oconexion);
-                    cmd.Parameters.AddWithValue("@idprovincia", idprovincia);
                     cmd.Parameters.AddWithValue("@iddepartamento", iddepartamento);
+                    cmd.Parameters.AddWithValue("@idprovincia", idprovincia);
                     cmd.CommandType = CommandType.Text;
 
                     oconexion.Open();

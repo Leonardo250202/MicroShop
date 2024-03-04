@@ -62,4 +62,108 @@
             </div>
         </div>
     </div>
-    </div>
+</div>
+
+
+@section scripts{
+    <script>
+
+        $(document).ready(function () {
+
+            ListarDepartamento()
+        })
+
+
+
+
+        function ListarDepartamento() {
+
+
+            $("<option>").attr({ "value": "00", "disabled": "disabled","selected":true }).text("Seleccionar").appendTo("#cbodepartamento")
+
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerDepartamento","Tienda")',
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (data.lista != null) {
+
+                        $.each(data.lista, function (i, item) {
+
+                            $("<option>").attr({ "value": item.IdDepartamento}).text(item.Descripcion).appendTo("#cbodepartamento")
+                        })
+
+                        ListarProvincia();
+                    }
+                }
+            })
+        }
+
+        $("#cbodepartamento").on("change", function () {
+            ListarProvincia();
+        })
+
+        function ListarProvincia() {
+
+                $("#cboprovincia").html("")
+
+
+                $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": true }).text("Seleccionar").appendTo("#cboprovincia")
+
+                jQuery.ajax({
+                    url: '@Url.Action("ObtenerProvincia", "Tienda")',
+                    type: "POST",
+                    data: JSON.stringify({ IdDepartamento: $("#cbodepartamento option:selected").val() }),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        if (data.lista != null) {
+
+                            $.each(data.lista, function (i, item) {
+
+                                $("<option>").attr({ "value": item.IdProvincia }).text(item.Descripcion).appendTo("#cboprovincia")
+                            })
+                            ListarDistrito();
+
+                        }
+                    }
+                })
+        }
+
+        $("#cboprovincia").on("change", function () {
+            ListarDistrito();
+        })
+
+        function ListarDistrito() {
+
+            $("#cbodistrito").html("")
+
+
+            $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": true }).text("Seleccionar").appendTo("#cbodistrito")
+
+                        jQuery.ajax({
+                            url: '@Url.Action("ObtenerDistrito", "Tienda")',
+                            type: "POST",
+                            data: JSON.stringify({ IdDepartamento: $("#cbodepartamento option:selected").val(), IdProvincia: $("#cboprovincia option:selected").val() }),
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+
+                                if (data.lista != null) {
+
+                                    $.each(data.lista, function (i, item) {
+
+                                        $("<option>").attr({ "value": item.IdDistrito }).text(item.Descripcion).appendTo("#cbodistrito")
+                                    })
+
+                                }
+                            }
+                        })
+                    }
+
+    </script>
+    
+    }
