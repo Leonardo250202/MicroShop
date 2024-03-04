@@ -144,16 +144,14 @@ insert into USUARIO (Nombres, Apellidos, Correo, Clave) values	('Admin', 'Admin'
 	('NIKE')
 
 
-	Select * from PROVINCIA;
-	insert into  PROVINCIA(IdDepartamento, Descripcion)
+	insert into  DEPARTAMENTO(IdDepartamento, Descripcion)
 	values 
 	('01','Pichincha'),
 	('02','Guayas'),
 	('03','Esmeraldas')
 
 
-	select * from CIUDAD;
-	insert into CIUDAD (IdProvincia, Descripcion, IdDepartamento)
+	insert into PROVINCIA (IdProvincia, Descripcion, IdDepartamento)
 	values
 	('0101', 'Quito', '01'),
 	('0102', 'Pedro Moncayo', '01'),
@@ -168,7 +166,7 @@ insert into USUARIO (Nombres, Apellidos, Correo, Clave) values	('Admin', 'Admin'
 
 	
 
-	INSERT INTO BARRIO(IdDistrito, Descripcion, IdProvincia, IdDepartamento) values
+	INSERT INTO DISTRITO(IdDistrito, Descripcion, IdProvincia, IdDepartamento) values
 	('010101', 'Solanda', '0101', '01'),
 	('010102', 'La Magdalena', '0101', '01'),
 
@@ -596,17 +594,21 @@ create function fn_obtenerCarritoCliente(
 returns table
 as
 return(
-		select P.IdProducto,M.Descripcion[DesMarca],p.Nombre,p.Precio,c.Cantidad,p.RutaImagen,p.NombreImagen
+		select p.IdProducto,m.Descripcion[DesMarca],p.Nombre,p.Precio,c.Cantidad,p.RutaImagen,p.NombreImagen
+		
 		from CARRITO c
-		inner join PRODUCTO p on P.IdProducto = C.IdProducto
-		INNER JOIN MARCA M ON M.IdMarca=P.IdMarca
-		WHERE C.IdCliente = @idcliente
+		inner join PRODUCTO p on p.IdProducto = c.IdProducto
+		inner join MARCA m ON m.IdMarca = p.IdMarca
+		WHERE c.IdCliente = @idcliente
 		)
+
+select * from fn_obtenerCarritoCliente(1)
 
 create proc sp_EliminarCarrito (
 @IdCliente int,
 @IdProducto int,
-@Resultado bit output)
+@Resultado bit output
+)
 as
 begin
 	
@@ -615,9 +617,10 @@ begin
 
 		BEGIN TRY
 			BEGIN TRANSACTION OPERACION
+
 			update PRODUCTO set Stock = Stock + @cantidadproducto where IdProducto = @IdProducto
 			delete top (1) from CARRITO where IdCliente = @IdCliente and IdProducto = @IdProducto
-			Commit TRANSACTION OPERACION
+			COMMIT TRANSACTION OPERACION
 		END TRY
 		BEGIN CATCH
 			set @Resultado = 0
