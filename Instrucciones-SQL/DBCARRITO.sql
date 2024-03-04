@@ -516,8 +516,8 @@ end
   set @Mensaje = 'El correo del usuario ya existe'
 end
 
---------------------------desde aqui 
----------------------------------------------video 35-------------
+--------------------------desde aqui FUNCIONES-----------
+----------------------------------------------------------
 create proc sp_ExisteCarrito(
 @IdCliente int, 
 @IdProducto int,
@@ -582,10 +582,10 @@ begin
 		END CATCH
 	end
 
-	------------------------video 36--------------
+	--------------------------------------
 
 	select * from cliente
-----------------------video 37---------------
+------------------------------------
 
 
 create function fn_obtenerCarritoCliente(
@@ -632,7 +632,7 @@ select * from  departamento
 select * from provincia where IdDepartamento = @iddepartamento
 select * from DISTRITO where IdProvincia = @idprovincia and IdDepartamento = @iddepartamento
 
-------------video 42------
+---------------------------
 create type [dbo].[EDetalle_Venta] as table(
 	[IdProducto] int null,
 	[Cantidad] int null,
@@ -681,3 +681,8 @@ begin
 		rollback transaction registro
 	end catch
 end
+
+select * from CARRITO
+select * from VENTA
+
+select * from DETALLE_VENTA

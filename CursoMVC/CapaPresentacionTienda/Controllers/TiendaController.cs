@@ -243,7 +243,7 @@ namespace CapaPresentacionTienda.Controllers
             TempData["Venta"] = oVenta;
             TempData["DetalleVenta"] = detalle_venta;
 
-            return Json(new { Status = true, Link ="/Tienda/Pagofectuado?idTransaccion=code0001&Status=true"}, JsonRequestBehavior.AllowGet);
+            return Json(new { Status = true, Link = "/Tienda/PagoEfectuado?idTransaccion=code0001&status=true"}, JsonRequestBehavior.AllowGet);
             
         }
 
