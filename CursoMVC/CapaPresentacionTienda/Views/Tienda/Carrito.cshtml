@@ -145,7 +145,7 @@
 
                     $("#productos-carrito").LoadingOverlay("hide");
 
-                    $.each(response.data, function (i, item) { 
+                    $.each(response.data, function (i, item) {
                         $("<div>").addClass("card mb-2 card-producto").append(
                             $("<div>").addClass("card-body").append(
                                 $("<div>").addClass("row").append(
@@ -166,7 +166,7 @@
                                     ),
                                     /*4.-*/
                                     $("<div>").addClass("col-sm-2 align-self-center").append(
-                                        $("<span>").addClass("d-flex").append(
+                                        $("<div>").addClass("d-flex").append(
 
                                             $("<button>").addClass("btn btn-outline-secondary btn-restar rounded-0").append($("<i>").addClass("fas fa-minus")),
                                             $("<input>").addClass("form-control input-cantidad p-1 text-center rounded-0").attr({ "disabled": "disabled" })
@@ -178,13 +178,14 @@
                                     ),
                                     /*5.-*/
                                     $("<div>").addClass("col-sm-2 align-self-center").append(
-                                        $("<button>").addClass("btn btn-outline-danger btn-eliminar").append($("<i>").addClass("fas fa-trash-alt")," Eliminar"),
+                                        $("<button>").addClass("btn btn-outline-danger btn-eliminar").append($("<i>").addClass("fas fa-trash-alt"), " Eliminar")
+                                            .data("idproducto", item.oProducto.IdProducto),
 
 
                                     )
 
                                 )
-                              )  
+                              )
                         ).appendTo("#productos-carrito")
 
                     })
@@ -307,11 +308,123 @@
                 sumaTotal += subtotal;
 
 
-                 
+
             })
             $("#total").text(sumaTotal.toFixed(2))
             $("#total").data("sumaTotal", sumaTotal)
         }
+
+        $(document).on("click", ".btn-sumar", function () {
+            var div_contenedor = $(this).parent("div.d-flex");
+
+            var input_cantidad = $(div_contenedor).find("input.input-cantidad");
+
+            var btn = $(this)
+
+            var idproducto = $(input_cantidad).data("oProducto").IdProducto;
+
+            jQuery.ajax({
+                url: '@Url.Action("OperacionCarrito","Tienda")',
+                type: "POST",
+                data: JSON.stringify({ idproducto: idproducto, sumar: true }),
+                dataType: "json",
+                contentType: "application/json; charset=uft-8",
+                success: function (data) {
+
+                    $(btn).LoadingOverlay("hide")
+
+                    if (data.respuesta) {
+                        var cantidad = parseInt($(input_cantidad).val() ) + 1;
+                        $(input_cantidad).val(cantidad)
+                        sumarTotal()
+                    } else {
+                        swal("",data.mensaje,"warning")
+                    }
+                },
+                beforeSend: function () {
+                    $(btn).LoadingOverlay("show")
+                },
+                error: function (error) {
+                    $(btn).LoadingOverlay("hide")
+                }
+            })
+
+        })
+
+
+        $(document).on("click", ".btn-restar", function () {
+            var div_contenedor = $(this).parent("div.d-flex");
+
+            var input_cantidad = $(div_contenedor).find("input.input-cantidad");
+
+            var btn = $(this)
+
+            var idproducto = $(input_cantidad).data("oProducto").IdProducto;
+
+            var cantidad = parseInt($(input_cantidad).val()) - 1;
+
+            if (cantidad >= 1) {
+
+                jQuery.ajax({
+                    url: '@Url.Action("OperacionCarrito","Tienda")',
+                    type: "POST",
+                    data: JSON.stringify({ idproducto: idproducto, sumar: false }),
+                    dataType: "json",
+                    contentType: "application/json; charset=uft-8",
+                    success: function (data) {
+
+                        $(btn).LoadingOverlay("hide")
+
+                        if (data.respuesta) {
+
+                            $(input_cantidad).val(cantidad)
+                            sumarTotal()
+                        } else {
+                            swal("", data.mensaje, "warning")
+                        }
+                    },
+                    beforeSend: function () {
+                        $(btn).LoadingOverlay("show")
+                    },
+                    error: function (error) {
+                        $(btn).LoadingOverlay("hide")
+                    }
+                })
+            }
+        })
+
+        $(document).on("click", ".btn-eliminar", function () {
+
+            var idproducto = $(this).data("idproducto");
+
+            var card_producto = $(this).parents("div.card-producto");
+
+            jQuery.ajax({
+                url: '@Url.Action("EliminarCarrito","Tienda")',
+                type: "POST",
+                data: JSON.stringify({ idproducto: idproducto}),
+                dataType: "json",
+                contentType: "application/json; charset=uft-8",
+                success: function (data) {
+
+
+                    if (data.respuesta) {
+
+                        card_producto.remove();
+
+                        MostraCantidadCarrito();
+
+                        sumarTotal();
+
+                    } else {
+                        swal("",data.mensaje,"warning")
+                    }
+                }
+
+            })
+
+
+        })
 
     </script>
     
