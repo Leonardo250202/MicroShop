@@ -42,3 +42,7 @@ C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\obj\Debug\CapaNegoci
 C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\obj\Debug\CapaNegocio.csproj.CopyComplete
 C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\obj\Debug\CapaNegocio.dll
 C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\obj\Debug\CapaNegocio.pdb
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.dll
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\Newtonsoft.Json.xml
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.xml

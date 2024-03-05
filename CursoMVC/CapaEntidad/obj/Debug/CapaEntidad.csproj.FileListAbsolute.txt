@@ -16,3 +16,9 @@ C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaEntidad\obj\Deb
 C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
 C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaEntidad\obj\Debug\CapaEntidad.dll
 C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaEntidad\obj\Debug\CapaEntidad.pdb
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaEntidad\obj\Debug\CapaEntidad.pdb

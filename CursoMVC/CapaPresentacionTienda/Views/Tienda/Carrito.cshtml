@@ -10,6 +10,7 @@
         <div class="col-sm-12">
 
             <div class="card">
+
                 <div class="card-body">
 
                     <div class="row">
@@ -58,7 +59,7 @@
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                     </div>
-
+                                                    
                                                 </div>
 
                                                 <div class="col-sm-2 align-self-center">
@@ -74,8 +75,7 @@
 
                                 <div class="d-flex justify-content-end">
                                     <label class="align-self-center"><b>Total: S/. <span id="total">0</span></b></label>
-                                    </div>>
-
+                                </div>
 
                             </div>
 
@@ -275,24 +275,24 @@
 
             $("<option>").attr({ "value": "00", "disabled": "disabled", "selected": true }).text("Seleccionar").appendTo("#cbodistrito")
 
-                        jQuery.ajax({
-                            url: '@Url.Action("ObtenerDistrito", "Tienda")',
-                            type: "POST",
-                            data: JSON.stringify({ IdDepartamento: $("#cbodepartamento option:selected").val(), IdProvincia: $("#cboprovincia option:selected").val() }),
-                            dataType: "json",
-                            contentType: "application/json; charset=utf-8",
-                            success: function (data) {
+            jQuery.ajax({
+                url: '@Url.Action("ObtenerDistrito", "Tienda")',
+                type: "POST",
+                data: JSON.stringify({ IdDepartamento: $("#cbodepartamento option:selected").val(), IdProvincia: $("#cboprovincia option:selected").val() }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
 
-                                if (data.lista != null) {
+                    if (data.lista != null) {
 
-                                    $.each(data.lista, function (i, item) {
+                        $.each(data.lista, function (i, item) {
 
-                                        $("<option>").attr({ "value": item.IdDistrito }).text(item.Descripcion).appendTo("#cbodistrito")
-                                    })
+                            $("<option>").attr({ "value": item.IdDistrito }).text(item.Descripcion).appendTo("#cbodistrito")
+                       })
 
-                                }
-                            }
-                        })
+                    }
+                }
+            })
         }
         function sumarTotal() {
 
@@ -460,7 +460,7 @@
                 })
             })
             jQuery.ajax({
-                rl: '@Url.Action("ProcesarPago","Tienda")',
+                Url: '@Url.Action("ProcesarPago","Tienda")',
                 type: "POST",
                 data: JSON.stringify({ oListaCarrito: lista_carrito, oVenta: venta }),
                 dataType: "json",
@@ -470,7 +470,16 @@
                     $.LoadingOverlay("hide")
 
                     if (data.Status) {
-                        window.location.href = data.Link;
+
+                        var jsonresult = data.Response;
+
+                        var links = jsonresult.links;
+
+                        var resultado = links.find(item => item.rel === "approve");
+
+                        window.location.href = resultado.href
+
+
                     } else {
                         swal("", "Vuelva a intertarlo mas tarde", "warning");
                     }
