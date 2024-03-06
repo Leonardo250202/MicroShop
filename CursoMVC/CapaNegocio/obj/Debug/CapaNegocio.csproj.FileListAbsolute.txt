@@ -46,3 +46,7 @@ C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\Newtonsoft
 C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.dll
 C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\Newtonsoft.Json.xml
 C:\Users\kasantafe\Documents\MicroShop\CursoMVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.xml
+C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaNegocio\bin\Debug\Newtonsoft.Json.dll
+C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.dll
+C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaNegocio\bin\Debug\Newtonsoft.Json.xml
+C:\Users\leona\OneDrive\Documentos\GitHub\MicroShop\CursoMVC\CapaNegocio\bin\Debug\System.Configuration.ConfigurationManager.xml

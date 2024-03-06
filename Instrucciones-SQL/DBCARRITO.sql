@@ -103,14 +103,14 @@ FechaRegistro datetime default getdate ()
 
 go
 
-CREATE TABLE PROVINCIA(
+CREATE TABLE DEPARTAMENTO(
 IdDepartamento varchar (2) NOT NULL,
 Descripcion varchar (50) NOT NULL
 )
 
 go 
 
-CREATE TABLE CIUDAD(
+CREATE TABLE PROVINCIA(
 IdProvincia varchar (4) NOT NULL,
 Descripcion varchar (45) NOT NULL,
 IdDepartamento varchar (2) NOT NULL
@@ -118,7 +118,7 @@ IdDepartamento varchar (2) NOT NULL
 
 go
 
-CREATE TABLE BARRIO (
+CREATE TABLE DISTRITO (
 IdDistrito varchar (96) NOT NULL,
 Descripcion varchar (45) NOT NULL,
 IdProvincia varchar (4) NOT NULL,
@@ -685,4 +685,7 @@ end
 select * from CARRITO
 select * from VENTA
 
-select * from DETALLE_VENTA
+select * from DETALLE_VENTA DV
+inner join PRODUCTO	P ON P.IdProducto = DV.IdProducto
+INNER JOIN VENTA V ON V.IdVenta = DV.IdVenta
+where v.IdCliente = 1
